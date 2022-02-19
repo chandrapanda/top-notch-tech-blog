@@ -49,6 +49,12 @@ aside {
   color: var(--light);
 }
 
+#aside-head {
+  font-size: 30px;
+  text-align: center;
+
+}
+
 nav {
   display: flex;
   background-color: var(--secondary);

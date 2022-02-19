@@ -15,7 +15,7 @@
   </header>
   <nav>
     <a href="/">Home</a>
-    <a href="/">Dashboard</a>
+    <a href="/dashboard">Dashboard</a>
     {{#if loggedIn}}
     <button id="logout" class="btn-no-style">Logout</button>
     {{else}}
@@ -24,7 +24,7 @@
   </nav>
   <main>
     <aside>
-      <h2>Log in and enjoy the blog!</h2>
+      <h2 id="aside-head">Log in and enjoy the blog!</h2>
     </aside>
     <div class="blog">
       {{{body}}}

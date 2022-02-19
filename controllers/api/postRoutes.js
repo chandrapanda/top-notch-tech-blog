@@ -1,8 +1,9 @@
-const router = require('express').Router();
-const { Post } = require('../../models');
+const router = require("express").Router();
+const { Post } = require("../../models");
+const withAuth = require("../../utils/auth");
 
 // CREATE new post
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const dbPostData = await Post.create({
       title: req.body.title,
@@ -22,17 +23,20 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get all posts
-router.get('/dashboard', async (req, res) => {
+// TODO: Get all posts by specific user
+router.get("/", withAuth, async (req, res) => {
   try {
-    const dbPostData = await Post.findAll({});
+    const dbPostData = await Post.findAll({
+      where: {
+        userId: req.session.userId,
+      },
+    });
 
     if (!dbPostData) {
-      res
-        .status(400)
-        .json({ message: 'ERROR - no posts found!' });
+      res.status(400).json({ message: "ERROR - no posts found!" });
       return dbPostData;
     }
+    dbPostData.map();
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -40,18 +44,18 @@ router.get('/dashboard', async (req, res) => {
 });
 
 //Get a single post by its `id`
-router.get('/:id', async (req, res) => {
-    try {
-      const dbPostData = await Post.findByPk(req.params.id, { });
-      if (!dbPostData) {
-        res.status(404).json({message: "No post with this ID found"});
-        return dbPostData;
-      }
-      res.status(200).json(dbPostData);
-    } catch (err) {
-      res.status(500).json(err);
-      console.log(err);
+router.get("/:id", async (req, res) => {
+  try {
+    const dbPostData = await Post.findByPk(req.params.id, {});
+    if (!dbPostData) {
+      res.status(404).json({ message: "No post with this ID found" });
+      return dbPostData;
     }
-  });
+    res.status(200).json(dbPostData);
+  } catch (err) {
+    res.status(500).json(err);
+    console.log(err);
+  }
+});
 
 module.exports = router;
