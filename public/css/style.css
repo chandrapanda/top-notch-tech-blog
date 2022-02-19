@@ -42,7 +42,6 @@ main {
 }
 
 aside {
-  flex: 0;
   background-color: var(--tertiary);
   padding: 80px;
   text-align: left;
@@ -52,7 +51,6 @@ aside {
 #aside-head {
   font-size: 30px;
   text-align: center;
-
 }
 
 nav {
