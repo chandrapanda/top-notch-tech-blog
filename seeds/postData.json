@@ -1,14 +1,16 @@
 [
-    {
-        "title": "I love tech!",
-        "body": "Tech is so freaking cool. I couldn't live without my millions of things that run on electricity.",
-        "starting_date": "2021-10-11",
-        "starting_time": "09:44:11"
-    },
-    {
-        "title": "I don't love tech! :(",
-        "body": "Tech is so freaking unreliable. I couldn't live without my toolbox and my eight cats.",
-        "starting_date": "2020-11-23",
-        "starting_time": "20:33:09"
-    }
+  {
+    "title": "I love tech!",
+    "body": "Tech is so freaking cool. I couldn't live without my millions of things that run on electricity.",
+    "date": "2021-10-11",
+    "time": "09:44:11",
+    "username": "computerGeek23"
+  },
+  {
+    "title": "I don't love tech! :(",
+    "body": "Tech is so freaking unreliable. I couldn't live without my toolbox and my eight cats.",
+    "date": "2020-11-23",
+    "time": "20:33:09",
+    "username": "cats-rule-99"
+  }
 ]
