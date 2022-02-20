@@ -5,23 +5,18 @@ const withAuth = require("../../utils/auth");
 // CREATE new post
 router.post("/", async (req, res) => {
   try {
-    const dbPostData = await Post.create({
-      title: req.body.title,
-      body: req.body.body,
-      date: req.body.date,
-      time: req.body.time,
-      user: req.body.username,
-    });
-
-    req.session.save(() => {
-      req.session.loggedIn = true;
-
-      res.status(200).json(dbPostData);
-    });
+    const body = req.body;
+    // TODO: Pull user_id based on session and add to body//
+    const newPost = await Post.create(body);
+    res.status(200).json(newPost);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json(err);
   }
+
+  // req.session.save(() => {
+  //   req.session.loggedIn = true;
+  // });
 });
 
 // Get all posts by specific user
@@ -29,7 +24,7 @@ router.get("/", withAuth, async (req, res) => {
   try {
     const dbPostData = await Post.findAll({
       where: {
-        userId: req.session.userId,
+        user_id: req.session.user_id,
       },
     });
 
@@ -39,8 +34,8 @@ router.get("/", withAuth, async (req, res) => {
     }
 
     const posts = postData.map((post) => post.get({ plain: true }));
-
-    res.render("all-posts-admin", {
+    res.status(200).json(posts);
+    res.render({
       layout: "dashboard",
       posts,
     });
@@ -49,11 +44,11 @@ router.get("/", withAuth, async (req, res) => {
   }
 });
 
-router.get("/new", withAuth, (req, res) => {
-  res.render("new-post", {
-    layout: "dashboard",
-  });
-});
+// router.get("/new", withAuth, (req, res) => {
+//   res.render("new-post", {
+//     layout: "dashboard",
+//   });
+// });
 
 // router.get('/edit/:id', withAuth, async (req, res) => {
 //   try {

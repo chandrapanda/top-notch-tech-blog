@@ -1,23 +1,19 @@
-const newPostButton = document
-  .getElementById("#blog-post")
-  .addEventListener("click", newPostHandler());
-
 const newPostHandler = async (event) => {
   event.preventDefault();
 
-  const newPost = document.querySelector("#blog-post").value.trim();
+  const blogText = document.querySelector("#blog-text").value.trim();
+  const blogTitle = document.querySelector("#blog-title").value.trim();
 
-  if (newPost) {
-    const response = await fetch("/api/post", {
+  if (blogText && blogTitle) {
+    const newBlogPost = await fetch("/api/posts", {
       method: "POST",
-      body: JSON.stringify({ title, body }),
+      body: JSON.stringify({ body: blogText, title: blogTitle }),
       headers: { "Content-Type": "application/json" },
     });
-
-    if (response.ok) {
-      document.location.replace("/");
-    } else {
-      alert("Failed to post.");
-    }
+  } else {
+    alert("Failed to post.");
   }
 };
+const newPostButton = document
+  .getElementById("blog-post")
+  .addEventListener("click", newPostHandler);

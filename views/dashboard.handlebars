@@ -1,18 +1,32 @@
-<form>
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Post Title</label>
-    <textarea
-      class="form-control"
-      id="exampleFormControlTextarea1"
-      rows="1"
-    ></textarea>
-    <label for="exampleFormControlTextarea1">Post Text</label>
-    <textarea
-      class="form-control"
-      id="exampleFormControlTextarea1"
-      rows="3"
-    ></textarea>
-  </div>
-  <button id="blog-post" type="submit" class="btn btn-primary">Post to blog!</button>
-</form>
-<script src="/js/newPost.js"></script>
+{{#if loggedIn}}
+  <form>
+    <div class="form-group">
+      <label for="blog-title">Post Title</label>
+      <textarea
+        class="form-control"
+        id="blog-title"
+        rows="1"
+      ></textarea>
+      <label for="blog-text">Post Text</label>
+      <textarea
+        class="form-control"
+        id="blog-text"
+        rows="3"
+      ></textarea>
+    </div>
+    <button id="blog-post" type="submit" class="btn btn-primary">Post to blog!</button>
+  </form>
+  <script src="/js/newPost.js"></script>
+{{else}}
+  <a href="/login"></a>
+{{/if}}
+
+{{#if loggedIn}}
+    <div class ="posts">
+        {{#each posts as |post|}}
+        {{> post-details }}
+        {{/each}}
+    </div>
+{{else}} 
+    <a href="/login">Please log in before viewing and submitting posts</a>
+{{/if}}

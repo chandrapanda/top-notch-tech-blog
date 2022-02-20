@@ -15,8 +15,9 @@ router.get("/", withAuth, async (req, res) => {
     });
 
     const posts = dbPostData.map((post) => post.get({ plain: true }));
-    res.render("homepage", {
+    res.render("dashboard", {
       posts,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     console.log(err);
@@ -51,6 +52,11 @@ router.get("/login", (req, res) => {
     return;
   }
   res.render("login");
+});
+
+// Dashboard route
+router.get("/dashboard", (req, res) => {
+  res.render("dashboard", { loggedIn: req.session.loggedIn });
 });
 
 module.exports = router;
